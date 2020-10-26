@@ -3,9 +3,17 @@
 A python package to do EDA, feature selection and display the best hyperparameters for a pre-built classification model.
 
 Useful for datasets with no NaNs or null values present.
+Can be used for normal classification tasks, next update will work for Regression type problems and incorporate a sorted arrangement of variables.
 
-After the data massaging, call EDA() for normalizing/standardizing the numerical columns and OHE/label Encoding for categorical columns.
+before utilizing the package, ensure no Null or NaN values remain.
 
-Call feature_extraction() for selecting the best features in a dataset to pass on to a model. You can skip the function too.
+installing the package:
+    pip install eda-fe-model==0.1.1
 
-Call build_best_model() to return a list of hyperparameters seacrhed and the best score achieved.
+## Using the library
+from eda_fe_model import package
+
+package.EDA()
+package.feature_extraction()
+Use to_categorical from keras.utils
+package.build_best_model()

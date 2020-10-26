@@ -5,7 +5,7 @@ with open('README.md') as readme_file:
 
 setup_args = dict(
     name="eda-fe-model",
-    version="0.0.3",
+    version="0.1.1",
     description="A python package to handle EDA and feature extraction and also return the best hyperparameters for a tabular classification problem.",
     long_description_content_type="text/markdown",
     long_description=README,
@@ -21,7 +21,7 @@ setup_args = dict(
 install_requires=[
         "numpy>=1.18.5",
         "pandas>=1.0.5",
-        "sklearn>=0.23.1",
+        "scikit-learn>=0.23.1",
         "statsmodels>=0.11.1",
         "tensorflow>=2.1.0"
 ]

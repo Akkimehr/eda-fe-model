@@ -61,7 +61,7 @@ def EDA(dataset, columns_drop, one_hot_encode, label_encode, normalize, standard
 def feature_extraction(train_X, train_Y, test_X, test_Y, rfe, dim_out, distribution):
         
     if rfe==True:
-        log_reg = LogisticRegression()
+        log_reg = LogisticRegression(max_iter=3000)
         
         try:
             dim_features = int(dim_out)
@@ -93,7 +93,7 @@ def feature_extraction(train_X, train_Y, test_X, test_Y, rfe, dim_out, distribut
         return x_train, x_test, result.summary()
     
     elif (rfe==False) and (dim_out==None) and (distribution==None):
-        return train_X, test_X    
+        return train_X, test_X
     else:
         raise ValueError("Error related to combinations, refer to documentation for combinations")
 
@@ -105,7 +105,7 @@ def build_best_model(x, y):
     
     classes = y.shape[1]
     
-    def create_model(n1=64, n2=64, n3=64, n4=64, activation='sigmoid', optimizer='adam', loss='binary_crossentropy'):
+    def create_model(n1=64, n2=64, n3=64, n4=64, n5=64, n6=64, activation='sigmoid', optimizer='adam', loss='binary_crossentropy'):
         model = Sequential()
         model.add(Input((X.shape[1],)))
         model.add(Dense(n1, kernel_initializer='glorot_normal', activation='relu'))
@@ -114,15 +114,19 @@ def build_best_model(x, y):
         model.add(Dense(n3, kernel_initializer='glorot_normal', activation='relu'))
         model.add(Dense(n4, kernel_initializer='glorot_normal', activation='relu'))
         model.add(BatchNormalization())
+        model.add(Dense(n5, kernel_initializer='glorot_normal', activation='relu'))
+        model.add(Dense(n6, kernel_initializer='glorot_normal', activation='relu'))
         model.add(Dense(classes, activation=activation))
         model.compile(loss=loss, optimizer=optimizer, metrics=['accuracy'])
         return model
     
     wrapper_object = KerasClassifier(build_fn=create_model, batch_size=32)
-    n1 = [512, 256, 128, 64, 32, 16, 8]
-    n2 = [512, 256, 128, 64, 32, 16, 8]
-    n3 = [512, 256, 128, 64, 32, 16, 8]
-    n4 = [512, 256, 128, 64, 32, 16, 8]
+    n1 = [8, 16, 32, 64, 128, 256, 512]
+    n2 = [8, 16, 32, 64, 128, 256, 512]
+    n3 = [8, 16, 32, 64, 128, 256, 512]
+    n4 = [8, 16, 32, 64, 128, 256, 512]
+    n5 = [8, 16, 32, 64, 128, 256, 512]
+    n6 = [8, 16, 32, 64, 128, 256, 512]
     optimizer = ['adam', 'sgd', 'rmsprop']
     activation = ['sigmoid', 'softmax']
     batch_size = [16, 32, 64, 128]
