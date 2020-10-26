@@ -131,8 +131,8 @@ def build_best_model(x, y):
     activation = ['sigmoid', 'softmax']
     batch_size = [16, 32, 64, 128]
     loss = ['binary_crossentropy', 'categorical_crossentropy']
-    params_dict = dict(n1=n1, n2=n2, n3=n3, n4=n4, optimizer=optimizer, loss=loss, activation=activation, batch_size=batch_size)
-    search_obj = RandomizedSearchCV(estimator=wrapper_object, param_distributions=params_dict, n_iter=38, cv=5)
+    params_dict = dict(n1=n1, n2=n2, n3=n3, n4=n4, n5=n5, n6=n6, optimizer=optimizer, loss=loss, activation=activation, batch_size=batch_size)
+    search_obj = RandomizedSearchCV(estimator=wrapper_object, param_distributions=params_dict, n_iter=53, cv=5)
     results = search_obj.fit(X, Y)
     return results
 
