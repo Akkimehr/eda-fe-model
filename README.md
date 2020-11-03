@@ -9,7 +9,7 @@ before utilizing the package, ensure no Null or NaN values remain.
 
     pip install eda-fe-model
 
-    pip install eda-fe-model==0.2.2
+    pip install eda-fe-model==0.3.0
 
 ## Using the library
     from eda_fe_model import package

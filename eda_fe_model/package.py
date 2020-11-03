@@ -90,6 +90,7 @@ def feature_extraction(train_X, train_Y, test_X, test_Y, rfe, dim_out, distribut
             
         glm = sm.GLM(exog=np.asarray(x_train), endog=np.asarray(train_Y), family=family_req)
         result = glm.fit()
+        print('The importance of the features : \n')
         print(result.summary())
         return x_train, x_test
     
