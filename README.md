@@ -12,13 +12,15 @@ before utilizing the package, ensure no Null or NaN values remain.
     pip install eda-fe-model==0.2.2
 
 ## Using the library
-from eda_fe_model import package
+    from eda_fe_model import package
 
-package.EDA()
-package.feature_extraction()
-Use to_categorical from keras.utils
-package.build_best_model()
-package.model_create()
+    package.EDA()
+    package.feature_extraction()
+
+Use to_categorical from keras.utils, to One Hot Encode the labels
+    
+    package.build_best_model()
+    package.model_create()
 
 
 ## EDA
