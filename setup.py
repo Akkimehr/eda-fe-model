@@ -5,7 +5,7 @@ with open('README.md') as readme_file:
 
 setup_args = dict(
     name="eda-fe-model",
-    version="0.3.0",
+    version="0.3.1",
     description="A python package to handle EDA and feature extraction and also return the best hyperparameters for a tabular classification problem.",
     long_description_content_type="text/markdown",
     long_description=README,
