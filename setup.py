@@ -5,13 +5,13 @@ with open('README.md') as readme_file:
 
 setup_args = dict(
     name="eda-fe-model",
-    version="0.2.0",
+    version="0.2.3",
     description="A python package to handle EDA and feature extraction and also return the best hyperparameters for a tabular classification problem.",
     long_description_content_type="text/markdown",
     long_description=README,
     license="MIT",
     packages=find_packages(),
-    author="Akshat Mehrotra",
+    author=["Akshat Mehrotra", "Mohammad Shaheer Khan"],
     author_email="akshat117@gmail.com",
     keywords = ['EDA', 'Feature_selection', 'Model_hyper_parametrs'],
     url="https://github.com/Akkimehr/eda-fe-model",

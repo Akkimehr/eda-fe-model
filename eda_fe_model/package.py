@@ -90,7 +90,8 @@ def feature_extraction(train_X, train_Y, test_X, test_Y, rfe, dim_out, distribut
             
         glm = sm.GLM(exog=np.asarray(x_train), endog=np.asarray(train_Y), family=family_req)
         result = glm.fit()
-        return x_train, x_test, result.summary()
+        print(result.summary())
+        return x_train, x_test
     
     elif (rfe==False) and (dim_out==None) and (distribution==None):
         return train_X, test_X
@@ -120,21 +121,75 @@ def build_best_model(x, y):
         model.compile(loss=loss, optimizer=optimizer, metrics=['accuracy'])
         return model
     
-    wrapper_object = KerasClassifier(build_fn=create_model, batch_size=32)
-    n1 = [8, 16, 32, 64, 128, 256, 512]
-    n2 = [8, 16, 32, 64, 128, 256, 512]
-    n3 = [8, 16, 32, 64, 128, 256, 512]
-    n4 = [8, 16, 32, 64, 128, 256, 512]
-    n5 = [8, 16, 32, 64, 128, 256, 512]
-    n6 = [8, 16, 32, 64, 128, 256, 512]
+    wrapper_object = KerasClassifier(build_fn=create_model, batch_size=32, epochs=20)
+    n1 = [8, 16, 32, 64, 128, 256]
+    n2 = [8, 16, 32, 64, 128, 256]
+    n3 = [8, 16, 32, 64, 128, 256]
+    n4 = [8, 16, 32, 64, 128, 256]
+    n5 = [8, 16, 32, 64, 128, 256]
+    n6 = [8, 16, 32, 64, 128, 256]
     optimizer = ['adam', 'sgd', 'rmsprop']
     activation = ['sigmoid', 'softmax']
     batch_size = [16, 32, 64, 128]
     loss = ['binary_crossentropy', 'categorical_crossentropy']
     params_dict = dict(n1=n1, n2=n2, n3=n3, n4=n4, n5=n5, n6=n6, optimizer=optimizer, loss=loss, activation=activation, batch_size=batch_size)
-    search_obj = RandomizedSearchCV(estimator=wrapper_object, param_distributions=params_dict, n_iter=53, cv=5)
+    search_obj = RandomizedSearchCV(estimator=wrapper_object, param_distributions=params_dict, n_iter=47, cv=10)
     results = search_obj.fit(X, Y)
     return results
 
 
+def model_create(x, y, activation, n1, n2, n3, n4, n5, n6, optimizer, loss, batch_size, epochs):
+
+    try:
+        n1 = int(n1)
+    except:
+        raise ValueError("'n1' expected an integer type value; got string")
+
+    try:
+        n2 = int(n2)
+    except:
+        raise ValueError("'n2' expected an integer type value; got string")
+
+    try:
+        n3 = int(n3)
+    except:
+        raise ValueError("'n3' expected an integer type value; got string")
+
+    try:
+        n4 = int(n4)
+    except:
+        raise ValueError("'n4' expected an integer type value; got string")
+
+    try:
+        n5 = int(n5)
+    except:
+        raise ValueError("'n5' expected an integer type value; got string")
+
+    try:
+        n6 = int(n6)
+    except:
+        raise ValueError("'n6' expected an integer type value; got string")
+
+    try:
+        epochs = int(epochs)
+    except:
+        raise ValueError("'epochs' expected an integer type value; got string")
+
+    X = x
+    Y = y
+    classes = Y.shape[1]
+    model = Sequential()
+    model.add(Input((X.shape[1],)))
+    model.add(Dense(n1, kernel_initializer='glorot_normal', activation='relu'))
+    model.add(Dense(n2, kernel_initializer='glorot_normal', activation='relu'))
+    model.add(BatchNormalization())
+    model.add(Dense(n3, kernel_initializer='glorot_normal', activation='relu'))
+    model.add(Dense(n4, kernel_initializer='glorot_normal', activation='relu'))
+    model.add(BatchNormalization())
+    model.add(Dense(n5, kernel_initializer='glorot_normal', activation='relu'))
+    model.add(Dense(n6, kernel_initializer='glorot_normal', activation='relu'))
+    model.add(Dense(classes, activation=activation))
+    model.compile(loss=loss, optimizer=optimizer, metrics=['accuracy'])
+    history = model.fit(X, Y, batch_size=batch_size, epochs=epochs, validation_split=0.1)
+    return history
 
