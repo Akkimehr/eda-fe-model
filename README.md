@@ -9,7 +9,7 @@ before utilizing the package, ensure no Null or NaN values remain.
 
     pip install eda-fe-model
 
-    pip install eda-fe-model==0.3.1
+    pip install eda-fe-model==0.3.2
 
 ## Using the library
     from eda_fe_model import package
@@ -26,13 +26,13 @@ Use to_categorical from keras.utils, to One Hot Encode the labels
 ## EDA
 package.EDA accepts the following:
 
-            dataset = dataset
+            dataset = pandas dataframe
             columns_drop = columns to drop as a list. Accepts None
             one_hot_encode = True/False
             label_encode = True/False
             normalize = True/False
             standardize = True/False
-            target_varaible = single target, y
+            target_varaible = single target, y, as array
             test_size = percentage of the dataset to be used for testing purposes
             random_state
 

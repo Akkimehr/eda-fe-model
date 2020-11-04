@@ -122,7 +122,7 @@ def build_best_model(x, y):
         model.compile(loss=loss, optimizer=optimizer, metrics=['accuracy'])
         return model
     
-    wrapper_object = KerasClassifier(build_fn=create_model, batch_size=32, epochs=10)
+    wrapper_object = KerasClassifier(build_fn=create_model, batch_size=32)
     n1 = [8, 16, 32, 64, 128, 256]
     n2 = [8, 16, 32, 64, 128, 256]
     n3 = [8, 16, 32, 64, 128, 256]
